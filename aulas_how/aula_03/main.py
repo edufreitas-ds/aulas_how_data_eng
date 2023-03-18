@@ -7,5 +7,6 @@ ret = requests.get(url)
 
 #%%
 print(ret)
+print(url)
 
 # %%
