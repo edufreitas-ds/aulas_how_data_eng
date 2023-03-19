@@ -167,21 +167,20 @@ log.addHandler(ch)
 @backoff.on_exception(backoff.expo, (ConnectionAbortedError, ConnectionRefusedError, TimeoutError),
                     max_tries=10)
 def test_func(*args, **kargs):
-    rnd = random.random()
-    log.debug(f"RND: {rnd}")
+    random_float = round(random.random(), 2)
+    log.debug(f"RND: {random_float}")
     log.info(f"args: {args if args else 'no args'}")
     log.info(f"kargs: {kargs if kargs else 'no kargs'}")
-    if rnd < .2:
+    if random_float < .2:
         log.error("Conexão abortada.")
         raise ConnectionAbortedError("Conexão abortada.")
-    elif rnd < .4:
+    elif random_float < .4:
         log.error("Conexão recusada.")
         raise ConnectionRefusedError("Conexão recusada.")
-    elif rnd < .6:
+    elif random_float < .6:
         log.error("Tempo de espera excedido.")
         raise TimeoutError("Tempo de espera excedido.")
     else:
-        return "OK! Número randômico (RND) aceito."
+        return f"OK! Número randômico (RND) aceito: {random_float}"
 # %%
 test_func()
-# %%
